@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class ScaleableMonoBehaviour : MonoBehaviour
 {
-    protected void SetLocalScale() {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+    private const float margin = 0.8f;
 
-        if (sr == null)
-            return;
+    protected void SetLocalScale() {
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         // Set filterMode
         sr.sprite.texture.filterMode = FilterMode.Point;
 
-        // Get stuff
-        double width = sr.sprite.bounds.size.x;
-        double cameraHeight = Camera.main.orthographicSize * 2.0;
+        double spriteHeight = sr.sprite.bounds.size.y;
 
-        // Resize
-        transform.localScale = new Vector2 (1, 1) * (float)(cameraHeight / width);
+        float cameraHeight = Camera.main.orthographicSize * 2;
+
+        transform.localScale = margin * (Vector2.one * (float)(cameraHeight / spriteHeight));
     }   
 
     public Vector3 GetLocalScale() {

@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class CardGrid : MonoBehaviour
 {
-
     public List<Card> CardSlots {get;set;}
     public Deck Deck {get;set;}
 
-    private float _gridWidth;
-    private float _gridHeight;
-
     void Start()
     {
-        _gridHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        _gridWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+        transform.position = new Vector2(1, 1);
+        CardSlots = new List<Card>();
+        Draw();
+        
+        
     }
 
     void Update()
-    {
-        
+    {   
+        // test
+        CardSlots[0].gameObject.transform.position = new Vector2(CardSlots[0].gameObject.transform.position.x - 0.1f, CardSlots[0].gameObject.transform.position.y);
     }
+
+
+    private void Draw(){
+        GameObject obj = Resources.Load("Prefabs/Cards/RoC_Testcard") as GameObject;
+        var gameObject = Object.Instantiate(obj, new Vector2(1,1), Quaternion.identity);
+        CardSlots.Add(gameObject.GetComponent<Card>());
+    }
+
+
 }
